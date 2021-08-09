@@ -5,6 +5,11 @@ metadata:
     app.kubernetes.io/instance: wordpress-site
     app.kubernetes.io/managed-by: Terraform
     app.kubernetes.io/name: wordpress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "1m"
+    nginx.ingress.kubernetes.io/proxy-max-temp-file-size: "1024m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"  
   name: wordpress-site
   namespace: boktore-covid
 spec:
