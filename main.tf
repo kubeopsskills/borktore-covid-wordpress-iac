@@ -14,7 +14,7 @@ module "kubernetes_manifests" {
   version                 = "v3.0.0"
   kubectl_create_command  = "kubectl apply -f manifests"
   kubectl_destroy_command = "kubectl delete -f manifests"
-  skip_download           = true
+  skip_download           = false
   use_existing_context    = true
   module_depends_on       = [module.wordpress]
 }
