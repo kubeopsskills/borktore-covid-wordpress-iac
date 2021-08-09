@@ -535,7 +535,7 @@ ingress:
   ingressClassName: "nginx"
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: xn--12cg2ccx5ftbc9d9gsc.com
+  hostname: "*"
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##
@@ -790,13 +790,6 @@ mariadb:
   ## To use an external database set this to false and configure the `externalDatabase.*` parameters
   ##
   enabled: true
-  resources:
-    limits:
-      memory: 1024Mi
-      cpu: 1024m
-    requests:
-      memory: 512Mi
-      cpu: 512m
   ## @param mariadb.architecture MariaDB architecture. Allowed values: `standalone` or `replication`
   ##
   architecture: replication
@@ -816,6 +809,13 @@ mariadb:
   ## MariaDB Primary configuration
   ##
   primary:
+    resources:
+      limits:
+        memory: 4096Mi
+        cpu: 2048m
+      requests:
+        memory: 2048Mi
+        cpu: 1024m
     pdb:
       enabled: true
       minAvailable: 1
@@ -835,6 +835,13 @@ mariadb:
       size: 100Gi
 
   secondary:
+    resources:
+      limits:
+        memory: 4096Mi
+        cpu: 2048m
+      requests:
+        memory: 2048Mi
+        cpu: 1024m
     replicaCount: 1
     pdb:
       enabled: true
