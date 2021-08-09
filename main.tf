@@ -9,18 +9,16 @@ module "wordpress" {
   lint_enabled     = var.lint_enabled
 }
 
-module "kubernetes_manifests" {
-  source                  = "terraform-google-modules/gcloud/google//modules/kubectl-wrapper"
-  version                 = "v3.0.0"
-  kubectl_create_command  = "kubectl apply -f manifests"
-  kubectl_destroy_command = "kubectl delete -f manifests"
-  skip_download           = false
-  use_existing_context    = true
-  module_depends_on       = [module.wordpress]
+resource "kubectl_manifest" "ingress" {
+  depends_on = [module.wordpress]
+  yaml_body  = file("./manifests/wordpress-ingress.yaml")
 }
 
 provider "helm" {
   kubernetes {}
+}
+
+provider "kubectl" {
 }
 
 terraform {
@@ -28,6 +26,10 @@ terraform {
     helm = {
       source  = "hashicorp/helm"
       version = "~> 2.0.3"
+    }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = "~> 1.11.0"
     }
   }
 
