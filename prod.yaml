@@ -518,7 +518,7 @@ service:
 ingress:
   ## @param ingress.enabled Enable ingress record generation for WordPress
   ##
-  enabled: true
+  enabled: false
   ## @param ingress.certManager Add the corresponding annotations for cert-manager integration
   ##
   certManager: false
@@ -535,7 +535,7 @@ ingress:
   ingressClassName: "nginx"
   ## @param ingress.hostname Default host for the ingress record
   ##
-  hostname: "*"
+  hostname: ""
   ## @param ingress.path Default path for the ingress record
   ## NOTE: You may need to set this to '/*' in order to use this with ALB ingress controllers
   ##

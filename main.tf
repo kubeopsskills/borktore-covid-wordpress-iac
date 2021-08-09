@@ -9,6 +9,16 @@ module "wordpress" {
   lint_enabled     = var.lint_enabled
 }
 
+module "kubernetes_manifests" {
+  source                  = "terraform-google-modules/gcloud/google//modules/kubectl-wrapper"
+  version                 = "v3.0.0"
+  kubectl_create_command  = "kubectl apply -f manifests"
+  kubectl_destroy_command = "kubectl delete -f manifests"
+  skip_download           = true
+  use_existing_context    = true
+  module_depends_on       = [module.wordpress]
+}
+
 provider "helm" {
   kubernetes {}
 }

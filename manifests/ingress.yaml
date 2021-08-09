@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: wordpress-site
+    app.kubernetes.io/managed-by: Terraform
+    app.kubernetes.io/name: wordpress
+  name: wordpress-site
+  namespace: boktore-covid
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: wordpress-site
+            port:
+              name: http
+        path: /
+        pathType: ImplementationSpecific
