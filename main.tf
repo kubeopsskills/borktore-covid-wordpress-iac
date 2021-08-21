@@ -18,6 +18,10 @@ resource "kubectl_manifest" "webhook" {
   yaml_body = file("./manifests/webhook.yaml")
 }
 
+resource "kubectl_manifest" "webhook-ingress" {
+  depends_on = [kubectl_manifest.webhook]
+  yaml_body  = file("./manifests/webhook-ingress.yaml")
+}
 
 provider "helm" {
   kubernetes {}

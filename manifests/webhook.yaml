@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: bc-webhook
-        image: kraivit/borktorecovid_webhook:2.0
+        image: kraivit/borktorecovid_webhook:4.0
         ports:
         - name: http
           containerPort: 8080
