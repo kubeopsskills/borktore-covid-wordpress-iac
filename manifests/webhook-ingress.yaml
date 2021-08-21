@@ -22,6 +22,6 @@ spec:
           service:
             name: bc-webhook
             port:
-              name: http
+              number: 8080
         path: /bc-webhook(/|$)(.*)
         pathType: Prefix
