@@ -23,7 +23,7 @@ spec:
             name: wordpress-site
             port:
               name: http
-        path: /
+        path: /(/|$)(.*)
         pathType: ImplementationSpecific
       - backend:
           service:
