@@ -364,11 +364,11 @@ tolerations: []
 ##
 resources:
   limits:
+    memory: 3072Mi
+    cpu: 2048m
+  requests:
     memory: 2048Mi
     cpu: 1024m
-  requests:
-    memory: 1024Mi
-    cpu: 512m
 ## Container ports
 ## @param containerPorts.http WordPress HTTP container port
 ## @param containerPorts.https WordPress HTTPS container port
@@ -698,7 +698,7 @@ pdb:
 autoscaling:
   enabled: true
   minReplicas: 1
-  maxReplicas: 11
+  maxReplicas: 20
   targetCPU: 70
   targetMemory: 50
 
