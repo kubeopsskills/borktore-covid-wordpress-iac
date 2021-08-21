@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bc-webhook
+  namespace: boktore-covid
+  labels:
+    app: bc-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bc-webhook
+  template:
+    metadata:
+      labels:
+        app: bc-webhook
+    spec:
+      containers:
+      - name: bc-webhook
+        image: kraivit/borktorecovid_webhook:2.0
+        ports:
+        - name: http
+          containerPort: 8080
+        resources:
+          requests:
+            cpu: 256m
+            memory: 512Mi
+          limits:   
+            cpu: 512m
+            memory: 1024Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bc-webhook
+  namespace: boktore-covid
+spec:
+  selector:
+    app: bc-webhook
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: bc-webhook
+  namespace: boktore-covid
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: bc-webhook
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: bc-webhook
+  namespace: boktore-covid
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: bc-webhook

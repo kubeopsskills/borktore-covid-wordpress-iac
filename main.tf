@@ -14,6 +14,11 @@ resource "kubectl_manifest" "ingress" {
   yaml_body  = file("./manifests/wordpress-ingress.yaml")
 }
 
+resource "kubectl_manifest" "webhook" {
+  yaml_body = file("./manifests/webhook.yaml")
+}
+
+
 provider "helm" {
   kubernetes {}
 }

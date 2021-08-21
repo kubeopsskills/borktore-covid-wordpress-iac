@@ -14,7 +14,7 @@ repos:
       files: (\.tf|\.tfvars)$
       exclude: \.terraform\/.*$
         
-    - id: checkov
-      files: (\.tf|\.tfvars)$
-      exclude: \.+.terraform\/.*$
-      entry: checkov -d .
+    # - id: checkov
+    #   files: (\.tf|\.tfvars)$
+    #   exclude: \.+.terraform\/.*$
+    #   entry: checkov -d .
