@@ -47,7 +47,7 @@ terraform {
     organization = "dev-thai-cm"
 
     workspaces {
-      prefix = "boktore-covid-"
+      prefix = "borktore-covid-"
     }
   }
 }
